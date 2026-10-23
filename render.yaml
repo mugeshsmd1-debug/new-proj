@@ -1,0 +1,23 @@
+# ==============================================================================
+# DEPRECATED / MIGRATED TO SUPABASE & NETLIFY
+# ==============================================================================
+# The backend and persistence layer has been migrated from Render to Supabase:
+# - Database: Hosted PostgreSQL on Supabase (ap-south-1)
+# - Architecture: 100% Serverless with direct @supabase/supabase-js client
+# - Frontend: Deployed to Netlify (refer to netlify.toml)
+# - Benefits: Zero 50-second cold starts, zero 502 HTML errors, permanent data persistence
+# ==============================================================================
+
+services:
+  - type: web
+    name: ms-store-backend
+    env: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 20.18.0

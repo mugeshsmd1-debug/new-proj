@@ -1,0 +1,19 @@
+{
+  "name": "smd-shopie",
+  "version": "1.0.0",
+  "description": "SMD SHOPIE - Smart POS Billing, Inventory, Accounting & Profit/Loss Management",
+  "main": "server/index.js",
+  "scripts": {
+    "server": "node server/index.js",
+    "client": "npm --prefix client run dev",
+    "build": "npm --prefix client run build",
+    "dev": "concurrently -n \"SERVER,CLIENT\" -c \"blue,green\" \"npm run server\" \"npm run client\"",
+    "start": "concurrently -n \"SERVER,CLIENT\" -c \"blue,green\" \"npm run server\" \"npm run client\""
+  },
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "concurrently": "^9.1.2",
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  }
+}

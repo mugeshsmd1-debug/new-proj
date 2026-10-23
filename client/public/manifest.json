@@ -1,0 +1,18 @@
+{
+  "name": "SMD SHOPIE - POS Billing & Inventory Management",
+  "short_name": "SMD SHOPIE",
+  "description": "Full-Featured Smart Retail POS, 3D Inventory Planogram, Dynamic UPI QR, and Offline Billing System",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#4f46e5",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
