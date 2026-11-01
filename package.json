@@ -1,7 +1,7 @@
 {
-  "name": "smd-shopie",
+  "name": "shopie",
   "version": "1.0.0",
-  "description": "SMD SHOPIE - Smart POS Billing, Inventory, Accounting & Profit/Loss Management",
+  "description": "Shopie - Smart POS Billing, Inventory, Accounting & Profit/Loss Management",
   "main": "server/index.js",
   "scripts": {
     "server": "node server/index.js",

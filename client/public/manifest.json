@@ -1,6 +1,6 @@
 {
-  "name": "SMD SHOPIE - POS Billing & Inventory Management",
-  "short_name": "SMD SHOPIE",
+  "name": "Shopie - POS Billing & Inventory Management",
+  "short_name": "Shopie",
   "description": "Full-Featured Smart Retail POS, 3D Inventory Planogram, Dynamic UPI QR, and Offline Billing System",
   "start_url": "/",
   "display": "standalone",
