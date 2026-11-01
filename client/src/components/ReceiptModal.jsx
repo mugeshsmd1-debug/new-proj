@@ -32,10 +32,11 @@ export default function ReceiptModal({ receipt, settings, onClose }) {
 
   const currency = settings?.currency_symbol || '₹';
   const invoiceNum = receipt?.invoiceNo || receipt?.invoice_no || 'BILL';
-  const shopName = settings?.shop_name || 'MS Store';
+  const shopName = settings?.shop_name || 'Shopie';
   const tagline = settings?.tagline || '';
   const address = settings?.address || '';
   const phone = settings?.phone || '';
+  const gstin = settings?.gstin || settings?.gst_number || '';
   const customerName = receipt?.customer_name || 'Walk-in Customer';
   const customerPhone = receipt?.customer_phone || '';
   const paymentMethod = receipt?.payment_method || 'Cash';
@@ -123,7 +124,8 @@ export default function ReceiptModal({ receipt, settings, onClose }) {
       `✨ Thank you for shopping with us!\n` +
       (address ? `📍 ${address}\n` : '') +
       (phone ? `📞 Tel: ${phone}\n` : '') +
-      `🌱 *MS Store Paperless E-Receipt*`;
+      (gstin ? `🏢 GSTIN: ${gstin}\n` : '') +
+      `🌱 *${shopName} Paperless E-Receipt*`;
 
     return text;
   }, [
@@ -146,6 +148,7 @@ export default function ReceiptModal({ receipt, settings, onClose }) {
     pointsBalNum,
     address,
     phone,
+    gstin,
   ]);
 
   if (!receipt) return null;
@@ -210,8 +213,8 @@ export default function ReceiptModal({ receipt, settings, onClose }) {
     <title>Receipt - ${invoiceNum}</title>
     <style>
       @page {
-        size: auto;
-        margin: 4mm 6mm;
+        size: 80mm auto;
+        margin: 0;
       }
       * {
         box-sizing: border-box;
@@ -221,39 +224,40 @@ export default function ReceiptModal({ receipt, settings, onClose }) {
         print-color-adjust: exact !important;
       }
       body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Courier New", monospace;
         color: #000000 !important;
         background: #ffffff !important;
-        font-size: 12px;
-        line-height: 1.4;
-        padding: 12px;
-        width: 100%;
-        max-width: 360px;
+        font-size: 11px;
+        line-height: 1.35;
+        padding: 3mm 2mm 12mm 2mm;
+        width: 72mm;
+        max-width: 72mm;
         margin: 0 auto;
       }
       .header {
         text-align: center;
-        padding-bottom: 10px;
+        padding-bottom: 8px;
         border-bottom: 1px dashed #000000;
       }
       .shop-name {
-        font-size: 18px;
+        font-size: 17px;
         font-weight: 800;
         text-transform: uppercase;
-        letter-spacing: -0.5px;
+        letter-spacing: -0.3px;
         color: #000000;
       }
       .shop-sub {
-        font-size: 11px;
-        color: #222222;
+        font-size: 10.5px;
+        color: #000000;
         margin-top: 2px;
+        word-break: break-word;
       }
       .meta {
-        padding: 8px 0;
+        padding: 6px 0;
         border-bottom: 1px dashed #000000;
         display: flex;
         justify-content: space-between;
-        font-size: 11px;
+        font-size: 10.5px;
         color: #000000;
       }
       .meta-left {
@@ -270,7 +274,7 @@ export default function ReceiptModal({ receipt, settings, onClose }) {
         align-items: flex-end;
       }
       .meta-label {
-        color: #444444;
+        color: #333333;
       }
       .bold {
         font-weight: 700;
@@ -281,37 +285,39 @@ export default function ReceiptModal({ receipt, settings, onClose }) {
       }
       .badge {
         display: inline-block;
-        background: #f1f5f9;
+        background: #ffffff;
         color: #000000;
-        padding: 1px 6px;
-        border-radius: 4px;
-        font-size: 10px;
+        padding: 1px 4px;
+        border-radius: 3px;
+        font-size: 9.5px;
         font-weight: 700;
-        margin-top: 2px;
-        border: 1px solid #cbd5e1;
+        border: 1px solid #000000;
       }
       table {
         width: 100%;
         border-collapse: collapse;
-        margin: 8px 0;
-        font-size: 11px;
+        margin: 6px 0;
+        font-size: 10.5px;
       }
       th {
         border-bottom: 1px solid #000000;
-        padding: 4px 2px;
+        border-top: 1px solid #000000;
+        padding: 4px 1px;
         color: #000000;
         font-weight: 700;
+        font-size: 10px;
+        text-transform: uppercase;
       }
       td {
-        padding: 5px 2px;
-        border-bottom: 1px solid #e2e8f0;
+        padding: 4px 1px;
+        border-bottom: 1px dotted #888888;
         color: #000000;
+        vertical-align: top;
       }
       .name-cell {
         text-align: left;
         font-weight: 600;
         color: #000000;
-        max-width: 130px;
         word-break: break-word;
       }
       .center-cell {
@@ -327,23 +333,24 @@ export default function ReceiptModal({ receipt, settings, onClose }) {
       .totals {
         padding: 6px 0;
         border-bottom: 1px dashed #000000;
-        font-size: 11.5px;
+        font-size: 11px;
       }
       .total-row {
         display: flex;
         justify-content: space-between;
         padding: 2px 0;
-        color: #222222;
+        color: #000000;
       }
       .discount-row {
-        color: #047857;
-        font-weight: 600;
+        color: #000000;
+        font-weight: 700;
       }
       .grand-total-row {
         border-top: 1px solid #000000;
-        margin-top: 6px;
-        padding-top: 6px;
-        font-size: 15px;
+        border-bottom: 1px solid #000000;
+        margin-top: 4px;
+        padding: 5px 0;
+        font-size: 14px;
         font-weight: 800;
         color: #000000;
       }
@@ -353,9 +360,9 @@ export default function ReceiptModal({ receipt, settings, onClose }) {
       }
       .footer {
         text-align: center;
-        padding-top: 10px;
-        font-size: 11px;
-        color: #444444;
+        padding-top: 8px;
+        font-size: 10px;
+        color: #000000;
       }
       .print-btn-bar {
         display: flex;
@@ -380,9 +387,10 @@ export default function ReceiptModal({ receipt, settings, onClose }) {
           display: none !important;
         }
         body {
-          padding: 0;
-          margin: 0;
-          max-width: 100%;
+          padding: 2mm 1mm 12mm 1mm;
+          margin: 0 auto;
+          width: 72mm;
+          max-width: 72mm;
         }
       }
     </style>
@@ -397,6 +405,7 @@ export default function ReceiptModal({ receipt, settings, onClose }) {
       ${tagline ? `<div class="shop-sub">${tagline}</div>` : ''}
       ${address ? `<div class="shop-sub">${address}</div>` : ''}
       ${phone ? `<div class="shop-sub">Tel: ${phone}</div>` : ''}
+      ${gstin ? `<div class="shop-sub bold">GSTIN: ${gstin}</div>` : ''}
     </div>
 
     <div class="meta">
@@ -407,20 +416,20 @@ export default function ReceiptModal({ receipt, settings, onClose }) {
       </div>
       <div class="meta-right">
         <div>${dateStr}</div>
-        <div class="mono" style="font-size:10px;">${timeStr}</div>
+        <div class="mono" style="font-size:9.5px;">${timeStr}</div>
         <div class="badge">${paymentMethod}</div>
-        <div class="badge" style="background:#e0e7ff;color:#3730a3;border-color:#c7d2fe;">${receipt.counter_name || 'Counter 1'}</div>
+        <div class="badge">${receipt.counter_name || 'Counter 1'}</div>
       </div>
     </div>
 
     <table>
       <thead>
         <tr>
-          <th style="text-align: left;">Item</th>
-          <th style="text-align: center;">Qty</th>
-          <th style="text-align: right;">Price</th>
-          <th style="text-align: center;">GST</th>
-          <th style="text-align: right;">Total</th>
+          <th style="text-align: left; width: 42%;">Item</th>
+          <th style="text-align: center; width: 14%;">Qty</th>
+          <th style="text-align: right; width: 16%;">Price</th>
+          <th style="text-align: center; width: 12%;">GST</th>
+          <th style="text-align: right; width: 16%;">Total</th>
         </tr>
       </thead>
       <tbody>
@@ -459,13 +468,16 @@ export default function ReceiptModal({ receipt, settings, onClose }) {
 
     <div class="footer">
       ${(loyaltyEarnedNum > 0 || pointsBalNum > 0) ? `
-        <div style="margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px dashed #cbd5e1; font-size: 11px;">
+        <div style="margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px dashed #000000; font-size: 10px;">
           ${loyaltyEarnedNum > 0 ? `<div>⭐ Points Earned on this Bill: <strong>+${loyaltyEarnedNum} pts</strong></div>` : ''}
           ${pointsBalNum > 0 ? `<div>🌟 Total Loyalty Points Balance: <strong>${pointsBalNum} pts</strong></div>` : ''}
         </div>
       ` : ''}
-      <p style="font-weight: 600; color: #000000;">Thank you for shopping with us!</p>
-      <p style="font-size: 10px; margin-top: 2px;">Please visit again</p>
+      <p style="font-weight: 700; color: #000000; text-transform: uppercase;">Thank you for shopping with us!</p>
+      <p style="font-size: 9.5px; margin-top: 2px;">Please visit again</p>
+      <div style="margin-top: 6px; font-size: 9px; color: #555555; padding-top: 4px; border-top: 1px dashed #888888;">
+        *** 80mm POS Thermal Receipt ***
+      </div>
     </div>
   </body>
 </html>`;
@@ -503,8 +515,8 @@ export default function ReceiptModal({ receipt, settings, onClose }) {
       iframe.style.position = 'fixed';
       iframe.style.left = '-9999px';
       iframe.style.top = '-9999px';
-      iframe.style.width = '420px';
-      iframe.style.height = '700px';
+      iframe.style.width = '80mm';
+      iframe.style.height = '1000px';
       iframe.style.border = '0';
       iframe.style.opacity = '0';
       iframe.style.pointerEvents = 'none';
@@ -588,6 +600,11 @@ export default function ReceiptModal({ receipt, settings, onClose }) {
               {phone && (
                 <div className="text-[11px] text-slate-600">
                   <span>Tel: {phone}</span>
+                </div>
+              )}
+              {gstin && (
+                <div className="text-[11px] text-slate-800 font-bold">
+                  <span>GSTIN: {gstin}</span>
                 </div>
               )}
               {(receipt.is_offline || String(invoiceNum).startsWith('INV-OFF')) && (

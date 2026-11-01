@@ -11,10 +11,11 @@ const STORAGE_KEYS = {
 
 const DEFAULT_SETTINGS = {
   id: 1,
-  shop_name: 'MS Store',
+  shop_name: 'Shopie',
   tagline: 'Smart Retail & Inventory Management',
   phone: '',
   address: '',
+  gstin: '',
   currency_symbol: '₹',
   tax_percentage: 5.0,
   owner_name: '',

@@ -57,11 +57,11 @@ body {
   box-shadow: 0 20px 35px -10px rgba(99, 102, 241, 0.25), 0 0 15px rgba(56, 189, 248, 0.15);
 }
 
-/* Print Receipt Styles */
+/* Print Receipt Styles (Optimized for 80mm POS Thermal Roll) */
 @media print {
   @page {
-    size: auto;
-    margin: 5mm;
+    size: 80mm auto;
+    margin: 0;
   }
 
   html,
@@ -70,7 +70,7 @@ body {
     padding: 0 !important;
     background: #ffffff !important;
     background-color: #ffffff !important;
-    color: #0f172a !important;
+    color: #000000 !important;
     overflow: visible !important;
     height: auto !important;
     min-height: auto !important;
@@ -132,10 +132,10 @@ body {
   #printable-receipt {
     position: static !important;
     display: block !important;
-    width: 100% !important;
-    max-width: 400px !important;
+    width: 72mm !important;
+    max-width: 72mm !important;
     margin: 0 auto !important;
-    padding: 8px !important;
+    padding: 2mm 1.5mm 12mm 1.5mm !important;
     background: #ffffff !important;
     color: #000000 !important;
     box-shadow: none !important;

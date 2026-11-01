@@ -37,10 +37,11 @@ import { api } from '../services/api';
 
 export default function SettingsView({ settings, onSettingsUpdated, user, onResetData, onLogout }) {
   const [formData, setFormData] = useState({
-    shop_name: 'MS Store',
+    shop_name: 'Shopie',
     tagline: 'Smart Retail & Inventory Management',
     phone: '',
     address: '',
+    gstin: '',
     currency_symbol: '₹',
     tax_percentage: 5.0,
     upi_id: '',
@@ -99,10 +100,11 @@ export default function SettingsView({ settings, onSettingsUpdated, user, onRese
   useEffect(() => {
     if (settings) {
       setFormData({
-        shop_name: settings.shop_name || user?.shop_name || 'MS Store',
+        shop_name: settings.shop_name || user?.shop_name || 'Shopie',
         tagline: settings.tagline || '',
         phone: settings.phone || user?.phone || '',
         address: settings.address || '',
+        gstin: settings.gstin || '',
         currency_symbol: settings.currency_symbol || '₹',
         tax_percentage: settings.tax_percentage ?? 5.0,
         upi_id: settings.upi_id || '',
@@ -400,19 +402,39 @@ export default function SettingsView({ settings, onSettingsUpdated, user, onRese
             </div>
           </div>
 
-          {/* Shop Address */}
-          <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1">
-              Store Address (Printed on Bills)
-            </label>
-            <div className="relative">
-              <MapPin className="absolute left-3.5 top-3 w-4 h-4 text-slate-500" />
-              <input
-                type="text"
-                value={formData.address}
-                onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                className="w-full pl-10 pr-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-indigo-500"
-              />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Shop Address */}
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1">
+                Store Address (Printed on Bills)
+              </label>
+              <div className="relative">
+                <MapPin className="absolute left-3.5 top-3 w-4 h-4 text-slate-500" />
+                <input
+                  type="text"
+                  placeholder="Street, City, State, Pincode"
+                  value={formData.address}
+                  onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                  className="w-full pl-10 pr-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-indigo-500"
+                />
+              </div>
+            </div>
+
+            {/* Store GSTIN / Tax ID */}
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1">
+                Store GSTIN / Tax Number (Printed on 80mm Bill)
+              </label>
+              <div className="relative">
+                <Receipt className="absolute left-3.5 top-3 w-4 h-4 text-slate-500" />
+                <input
+                  type="text"
+                  placeholder="e.g. 33AAAAA0000A1Z5"
+                  value={formData.gstin}
+                  onChange={(e) => setFormData({ ...formData, gstin: e.target.value.toUpperCase() })}
+                  className="w-full pl-10 pr-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-indigo-500 font-mono"
+                />
+              </div>
             </div>
           </div>
 
